@@ -1863,3 +1863,6 @@ export(supported_models)
 export(text_remove_backticks)
 export(trim_ws)
 export(validate_argument)
+
+
+importFrom(tidyr, drop_na)
