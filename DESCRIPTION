@@ -81,7 +81,8 @@ Depends:
 Imports:
     methods,
     stats,
-    utils
+    utils,
+    tidyr
 Suggests:
     AER,
     afex,
