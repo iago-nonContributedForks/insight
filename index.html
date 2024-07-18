@@ -12,14 +12,15 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="lightswitch.js"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Roboto-0.4.9/font.css" rel="stylesheet">
 <link href="deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
 <link href="deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Easy Access to Model Information for Various Model Objects">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><link href="deps/KaTex-0.16.10/katex.min.css" rel="stylesheet">
+<script src="deps/KaTex-0.16.10/katex.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Easy Access to Model Information for Various Model Objects">
 <meta name="description" content="A tool to provide an easy, intuitive and consistent access to information contained in various R models, like model formulas, model terms, information about random effects, data that was used to fit the model or data from response variables. insight mainly revolves around two types of functions: Functions that find (the names of) information, starting with find_, and functions that get the underlying data, starting with get_. The package has a consistent syntax and works with many different model objects, where otherwise functions to access these information are missing.">
 <meta property="og:description" content="A tool to provide an easy, intuitive and consistent access to information contained in various R models, like model formulas, model terms, information about random effects, data that was used to fit the model or data from response variables. insight mainly revolves around two types of functions: Functions that find (the names of) information, starting with find_, and functions that get the underlying data, starting with get_. The package has a consistent syntax and works with many different model objects, where otherwise functions to access these information are missing.">
 <meta property="og:image" content="https://easystats.github.io/insight/reference/figures/card.png">
@@ -29,22 +30,23 @@
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+
+
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="index.html">insight</a>
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.20.1</small>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.20.2.2</small>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html" aria-label="Reference"><span class="fa fa-file-code"></span> Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Articles"><span class="fa fa-book-reader"></span> Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/display.html">Formatting, printing and exporting tables</a></li>
-    <li><a class="dropdown-item" href="articles/export.html">Exporting tables with captions and footers</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html" aria-label="Articles"><span class="fa fa-book-reader"></span> Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html" aria-label="News"><span class="fa fa-newspaper"></span> News</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -79,6 +81,8 @@
 </li>
       </ul>
 </div>
+
+
   </div>
 </nav><div class="container template-home">
 <div class="row">
@@ -87,7 +91,7 @@
 <img src="logo.png" class="logo" alt=""><h1 id="insight-">insight <a class="anchor" aria-label="anchor" href="#insight-"></a>
 </h1>
 </div>
-<p><a href="https://doi.org/10.21105/joss.01412" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.01412/status.svg" alt="DOI"></a> <a href="https://cranlogs.r-pkg.org/" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/insight" alt="downloads"></a> <a href="https://cranlogs.r-pkg.org/" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/insight" alt="total"></a> <a href="https://CRAN.R-project.org/package=insight" class="external-link"><img src="https://tinyverse.netlify.com/badge/insight" alt="status"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></p>
+<p><a href="https://doi.org/10.21105/joss.01412" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.01412/status.svg" alt="DOI"></a> <a href="https://cranlogs.r-pkg.org/" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/insight" alt="downloads"></a> <a href="https://cranlogs.r-pkg.org/" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/insight" alt="total"></a></p>
 <p><strong>Gain insight into your models!</strong></p>
 <p>When fitting any statistical model, there are many useful pieces of information that are simultaneously calculated and stored beyond coefficient estimates and general model fit statistics. Although there exist some generic functions to obtain model information and data, many package-specific modelling functions do not provide such methods to allow users to access such valuable information.</p>
 <p><strong>insight</strong> is an R-package that fills this important gap by providing a suite of functions to support almost any model (see a list of the many models supported below in the <strong>List of Supported Packages and Models</strong> section). The goal of <strong>insight</strong>, then, is to provide tools to provide <em>easy</em>, <em>intuitive</em>, and <em>consistent</em> access to information contained in model objects. These tools aid applied research in virtually any field who fit, diagnose, and present statistical models by streamlining access to every aspect of many model objects via consistent syntax and output.</p>
@@ -102,23 +106,23 @@
 <col width="12%">
 <col width="75%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Type</th>
 <th>Source</th>
 <th>Command</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Release</td>
 <td>CRAN</td>
 <td><code>install.packages("insight")</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Development</td>
 <td>r-universe</td>
 <td><code>install.packages("insight", repos = "https://easystats.r-universe.dev")</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Development</td>
 <td>GitHub</td>
 <td><code>remotes::install_github("easystats/insight")</code></td>
@@ -279,7 +283,7 @@
 <div class="section level2">
 <h2 id="list-of-supported-models-by-class">List of Supported Models by Class<a class="anchor" aria-label="anchor" href="#list-of-supported-models-by-class"></a>
 </h2>
-<p>Currently, 226 model classes are supported.</p>
+<p>Currently, 231 model classes are supported.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/is_model_supported.html">supported_models</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] "aareg"                   "afex_aov"               </span></span>
@@ -312,89 +316,92 @@
 <span><span class="co">#&gt;  [55] "crr"                     "dep.effect"             </span></span>
 <span><span class="co">#&gt;  [57] "DirichletRegModel"       "draws"                  </span></span>
 <span><span class="co">#&gt;  [59] "drc"                     "eglm"                   </span></span>
-<span><span class="co">#&gt;  [61] "elm"                     "epi.2by2"               </span></span>
-<span><span class="co">#&gt;  [63] "ergm"                    "feglm"                  </span></span>
-<span><span class="co">#&gt;  [65] "feis"                    "felm"                   </span></span>
-<span><span class="co">#&gt;  [67] "fitdistr"                "fixest"                 </span></span>
-<span><span class="co">#&gt;  [69] "flac"                    "flexsurvreg"            </span></span>
-<span><span class="co">#&gt;  [71] "flic"                    "gam"                    </span></span>
-<span><span class="co">#&gt;  [73] "Gam"                     "gamlss"                 </span></span>
-<span><span class="co">#&gt;  [75] "gamm"                    "gamm4"                  </span></span>
-<span><span class="co">#&gt;  [77] "garch"                   "gbm"                    </span></span>
-<span><span class="co">#&gt;  [79] "gee"                     "geeglm"                 </span></span>
-<span><span class="co">#&gt;  [81] "glht"                    "glimML"                 </span></span>
-<span><span class="co">#&gt;  [83] "glm"                     "Glm"                    </span></span>
-<span><span class="co">#&gt;  [85] "glmm"                    "glmmadmb"               </span></span>
-<span><span class="co">#&gt;  [87] "glmmPQL"                 "glmmTMB"                </span></span>
-<span><span class="co">#&gt;  [89] "glmrob"                  "glmRob"                 </span></span>
-<span><span class="co">#&gt;  [91] "glmx"                    "gls"                    </span></span>
-<span><span class="co">#&gt;  [93] "gmnl"                    "hglm"                   </span></span>
-<span><span class="co">#&gt;  [95] "HLfit"                   "htest"                  </span></span>
-<span><span class="co">#&gt;  [97] "hurdle"                  "iv_robust"              </span></span>
-<span><span class="co">#&gt;  [99] "ivFixed"                 "ivprobit"               </span></span>
-<span><span class="co">#&gt; [101] "ivreg"                   "lavaan"                 </span></span>
-<span><span class="co">#&gt; [103] "lm"                      "lm_robust"              </span></span>
-<span><span class="co">#&gt; [105] "lme"                     "lmerMod"                </span></span>
-<span><span class="co">#&gt; [107] "lmerModLmerTest"         "lmodel2"                </span></span>
-<span><span class="co">#&gt; [109] "lmrob"                   "lmRob"                  </span></span>
-<span><span class="co">#&gt; [111] "logistf"                 "logitmfx"               </span></span>
-<span><span class="co">#&gt; [113] "logitor"                 "logitr"                 </span></span>
-<span><span class="co">#&gt; [115] "LORgee"                  "lqm"                    </span></span>
-<span><span class="co">#&gt; [117] "lqmm"                    "lrm"                    </span></span>
-<span><span class="co">#&gt; [119] "manova"                  "MANOVA"                 </span></span>
-<span><span class="co">#&gt; [121] "marginaleffects"         "marginaleffects.summary"</span></span>
-<span><span class="co">#&gt; [123] "margins"                 "maxLik"                 </span></span>
-<span><span class="co">#&gt; [125] "mblogit"                 "mclogit"                </span></span>
-<span><span class="co">#&gt; [127] "mcmc"                    "mcmc.list"              </span></span>
-<span><span class="co">#&gt; [129] "MCMCglmm"                "mcp1"                   </span></span>
-<span><span class="co">#&gt; [131] "mcp12"                   "mcp2"                   </span></span>
-<span><span class="co">#&gt; [133] "med1way"                 "mediate"                </span></span>
-<span><span class="co">#&gt; [135] "merMod"                  "merModList"             </span></span>
-<span><span class="co">#&gt; [137] "meta_bma"                "meta_fixed"             </span></span>
-<span><span class="co">#&gt; [139] "meta_random"             "metaplus"               </span></span>
-<span><span class="co">#&gt; [141] "mhurdle"                 "mipo"                   </span></span>
-<span><span class="co">#&gt; [143] "mira"                    "mixed"                  </span></span>
-<span><span class="co">#&gt; [145] "MixMod"                  "mixor"                  </span></span>
-<span><span class="co">#&gt; [147] "mjoint"                  "mle"                    </span></span>
-<span><span class="co">#&gt; [149] "mle2"                    "mlm"                    </span></span>
-<span><span class="co">#&gt; [151] "mlogit"                  "mmclogit"               </span></span>
-<span><span class="co">#&gt; [153] "mmlogit"                 "mmrm"                   </span></span>
-<span><span class="co">#&gt; [155] "mmrm_fit"                "mmrm_tmb"               </span></span>
-<span><span class="co">#&gt; [157] "model_fit"               "multinom"               </span></span>
-<span><span class="co">#&gt; [159] "mvord"                   "negbinirr"              </span></span>
-<span><span class="co">#&gt; [161] "negbinmfx"               "nestedLogit"            </span></span>
-<span><span class="co">#&gt; [163] "ols"                     "onesampb"               </span></span>
-<span><span class="co">#&gt; [165] "orm"                     "pgmm"                   </span></span>
-<span><span class="co">#&gt; [167] "phyloglm"                "phylolm"                </span></span>
-<span><span class="co">#&gt; [169] "plm"                     "PMCMR"                  </span></span>
-<span><span class="co">#&gt; [171] "poissonirr"              "poissonmfx"             </span></span>
-<span><span class="co">#&gt; [173] "polr"                    "probitmfx"              </span></span>
-<span><span class="co">#&gt; [175] "psm"                     "Rchoice"                </span></span>
-<span><span class="co">#&gt; [177] "ridgelm"                 "riskRegression"         </span></span>
-<span><span class="co">#&gt; [179] "rjags"                   "rlm"                    </span></span>
-<span><span class="co">#&gt; [181] "rlmerMod"                "RM"                     </span></span>
-<span><span class="co">#&gt; [183] "rma"                     "rma.uni"                </span></span>
-<span><span class="co">#&gt; [185] "robmixglm"               "robtab"                 </span></span>
-<span><span class="co">#&gt; [187] "rq"                      "rqs"                    </span></span>
-<span><span class="co">#&gt; [189] "rqss"                    "rvar"                   </span></span>
-<span><span class="co">#&gt; [191] "Sarlm"                   "scam"                   </span></span>
-<span><span class="co">#&gt; [193] "selection"               "sem"                    </span></span>
-<span><span class="co">#&gt; [195] "SemiParBIV"              "semLm"                  </span></span>
-<span><span class="co">#&gt; [197] "semLme"                  "serp"                   </span></span>
-<span><span class="co">#&gt; [199] "slm"                     "speedglm"               </span></span>
-<span><span class="co">#&gt; [201] "speedlm"                 "stanfit"                </span></span>
-<span><span class="co">#&gt; [203] "stanmvreg"               "stanreg"                </span></span>
-<span><span class="co">#&gt; [205] "summary.lm"              "survfit"                </span></span>
-<span><span class="co">#&gt; [207] "survreg"                 "svy_vglm"               </span></span>
-<span><span class="co">#&gt; [209] "svychisq"                "svyglm"                 </span></span>
-<span><span class="co">#&gt; [211] "svyolr"                  "t1way"                  </span></span>
-<span><span class="co">#&gt; [213] "tobit"                   "trimcibt"               </span></span>
-<span><span class="co">#&gt; [215] "truncreg"                "vgam"                   </span></span>
-<span><span class="co">#&gt; [217] "vglm"                    "wbgee"                  </span></span>
-<span><span class="co">#&gt; [219] "wblm"                    "wbm"                    </span></span>
-<span><span class="co">#&gt; [221] "wmcpAKP"                 "yuen"                   </span></span>
-<span><span class="co">#&gt; [223] "yuend"                   "zcpglm"                 </span></span>
-<span><span class="co">#&gt; [225] "zeroinfl"                "zerotrunc"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [61] "elm"                     "emmGrid"                </span></span>
+<span><span class="co">#&gt;  [63] "epi.2by2"                "ergm"                   </span></span>
+<span><span class="co">#&gt;  [65] "feglm"                   "feis"                   </span></span>
+<span><span class="co">#&gt;  [67] "felm"                    "fitdistr"               </span></span>
+<span><span class="co">#&gt;  [69] "fixest"                  "flac"                   </span></span>
+<span><span class="co">#&gt;  [71] "flexsurvreg"             "flic"                   </span></span>
+<span><span class="co">#&gt;  [73] "gam"                     "Gam"                    </span></span>
+<span><span class="co">#&gt;  [75] "gamlss"                  "gamm"                   </span></span>
+<span><span class="co">#&gt;  [77] "gamm4"                   "garch"                  </span></span>
+<span><span class="co">#&gt;  [79] "gbm"                     "gee"                    </span></span>
+<span><span class="co">#&gt;  [81] "geeglm"                  "ggcomparisons"          </span></span>
+<span><span class="co">#&gt;  [83] "glht"                    "glimML"                 </span></span>
+<span><span class="co">#&gt;  [85] "glm"                     "Glm"                    </span></span>
+<span><span class="co">#&gt;  [87] "glmerMod"                "glmgee"                 </span></span>
+<span><span class="co">#&gt;  [89] "glmm"                    "glmmadmb"               </span></span>
+<span><span class="co">#&gt;  [91] "glmmPQL"                 "glmmTMB"                </span></span>
+<span><span class="co">#&gt;  [93] "glmrob"                  "glmRob"                 </span></span>
+<span><span class="co">#&gt;  [95] "glmx"                    "gls"                    </span></span>
+<span><span class="co">#&gt;  [97] "gmnl"                    "hglm"                   </span></span>
+<span><span class="co">#&gt;  [99] "HLfit"                   "htest"                  </span></span>
+<span><span class="co">#&gt; [101] "hurdle"                  "iv_robust"              </span></span>
+<span><span class="co">#&gt; [103] "ivFixed"                 "ivprobit"               </span></span>
+<span><span class="co">#&gt; [105] "ivreg"                   "lavaan"                 </span></span>
+<span><span class="co">#&gt; [107] "lm"                      "lm_robust"              </span></span>
+<span><span class="co">#&gt; [109] "lme"                     "lmerMod"                </span></span>
+<span><span class="co">#&gt; [111] "lmerModLmerTest"         "lmodel2"                </span></span>
+<span><span class="co">#&gt; [113] "lmrob"                   "lmRob"                  </span></span>
+<span><span class="co">#&gt; [115] "logistf"                 "logitmfx"               </span></span>
+<span><span class="co">#&gt; [117] "logitor"                 "logitr"                 </span></span>
+<span><span class="co">#&gt; [119] "LORgee"                  "lqm"                    </span></span>
+<span><span class="co">#&gt; [121] "lqmm"                    "lrm"                    </span></span>
+<span><span class="co">#&gt; [123] "manova"                  "MANOVA"                 </span></span>
+<span><span class="co">#&gt; [125] "marginaleffects"         "marginaleffects.summary"</span></span>
+<span><span class="co">#&gt; [127] "margins"                 "maxLik"                 </span></span>
+<span><span class="co">#&gt; [129] "mblogit"                 "mclogit"                </span></span>
+<span><span class="co">#&gt; [131] "mcmc"                    "mcmc.list"              </span></span>
+<span><span class="co">#&gt; [133] "MCMCglmm"                "mcp1"                   </span></span>
+<span><span class="co">#&gt; [135] "mcp12"                   "mcp2"                   </span></span>
+<span><span class="co">#&gt; [137] "med1way"                 "mediate"                </span></span>
+<span><span class="co">#&gt; [139] "merMod"                  "merModList"             </span></span>
+<span><span class="co">#&gt; [141] "meta_bma"                "meta_fixed"             </span></span>
+<span><span class="co">#&gt; [143] "meta_random"             "metaplus"               </span></span>
+<span><span class="co">#&gt; [145] "mhurdle"                 "mipo"                   </span></span>
+<span><span class="co">#&gt; [147] "mira"                    "mixed"                  </span></span>
+<span><span class="co">#&gt; [149] "MixMod"                  "mixor"                  </span></span>
+<span><span class="co">#&gt; [151] "mjoint"                  "mle"                    </span></span>
+<span><span class="co">#&gt; [153] "mle2"                    "mlm"                    </span></span>
+<span><span class="co">#&gt; [155] "mlogit"                  "mmclogit"               </span></span>
+<span><span class="co">#&gt; [157] "mmlogit"                 "mmrm"                   </span></span>
+<span><span class="co">#&gt; [159] "mmrm_fit"                "mmrm_tmb"               </span></span>
+<span><span class="co">#&gt; [161] "model_fit"               "multinom"               </span></span>
+<span><span class="co">#&gt; [163] "mvord"                   "negbinirr"              </span></span>
+<span><span class="co">#&gt; [165] "negbinmfx"               "nestedLogit"            </span></span>
+<span><span class="co">#&gt; [167] "ols"                     "onesampb"               </span></span>
+<span><span class="co">#&gt; [169] "orm"                     "pgmm"                   </span></span>
+<span><span class="co">#&gt; [171] "phyloglm"                "phylolm"                </span></span>
+<span><span class="co">#&gt; [173] "plm"                     "PMCMR"                  </span></span>
+<span><span class="co">#&gt; [175] "poissonirr"              "poissonmfx"             </span></span>
+<span><span class="co">#&gt; [177] "polr"                    "probitmfx"              </span></span>
+<span><span class="co">#&gt; [179] "psm"                     "Rchoice"                </span></span>
+<span><span class="co">#&gt; [181] "ridgelm"                 "riskRegression"         </span></span>
+<span><span class="co">#&gt; [183] "rjags"                   "rlm"                    </span></span>
+<span><span class="co">#&gt; [185] "rlmerMod"                "RM"                     </span></span>
+<span><span class="co">#&gt; [187] "rma"                     "rma.uni"                </span></span>
+<span><span class="co">#&gt; [189] "robmixglm"               "robtab"                 </span></span>
+<span><span class="co">#&gt; [191] "rq"                      "rqs"                    </span></span>
+<span><span class="co">#&gt; [193] "rqss"                    "rvar"                   </span></span>
+<span><span class="co">#&gt; [195] "Sarlm"                   "scam"                   </span></span>
+<span><span class="co">#&gt; [197] "selection"               "sem"                    </span></span>
+<span><span class="co">#&gt; [199] "SemiParBIV"              "semLm"                  </span></span>
+<span><span class="co">#&gt; [201] "semLme"                  "serp"                   </span></span>
+<span><span class="co">#&gt; [203] "slm"                     "speedglm"               </span></span>
+<span><span class="co">#&gt; [205] "speedlm"                 "stanfit"                </span></span>
+<span><span class="co">#&gt; [207] "stanmvreg"               "stanreg"                </span></span>
+<span><span class="co">#&gt; [209] "summary.lm"              "survfit"                </span></span>
+<span><span class="co">#&gt; [211] "survreg"                 "svy_vglm"               </span></span>
+<span><span class="co">#&gt; [213] "svy2lme"                 "svychisq"               </span></span>
+<span><span class="co">#&gt; [215] "svyglm"                  "svyolr"                 </span></span>
+<span><span class="co">#&gt; [217] "t1way"                   "tobit"                  </span></span>
+<span><span class="co">#&gt; [219] "trimcibt"                "truncreg"               </span></span>
+<span><span class="co">#&gt; [221] "vgam"                    "vglm"                   </span></span>
+<span><span class="co">#&gt; [223] "wbgee"                   "wblm"                   </span></span>
+<span><span class="co">#&gt; [225] "wbm"                     "wmcpAKP"                </span></span>
+<span><span class="co">#&gt; [227] "yuen"                    "yuend"                  </span></span>
+<span><span class="co">#&gt; [229] "zcpglm"                  "zeroinfl"               </span></span>
+<span><span class="co">#&gt; [231] "zerotrunc"</span></span></code></pre></div>
 <ul>
 <li>
 <strong>Didn’t find a model?</strong> <a href="https://github.com/easystats/insight/issues" class="external-link">File an issue</a> and request additional model-support in <em>insight</em>!</li>
@@ -421,12 +428,14 @@
 <li><a href="https://easystats.github.io/easystats/index.html" class="external-link">Learn more</a></li>
 </ul>
 </div>
+
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
 </ul>
 </div>
+
 <div class="community">
 <h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
@@ -435,12 +444,14 @@
 <li><a href="SUPPORT.html">Getting help</a></li>
 </ul>
 </div>
+
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html#citation">Citing insight</a></li>
 </ul>
 </div>
+
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
@@ -463,15 +474,26 @@
 </ul>
 </div>
 
+
+
   </aside>
 </div>
+
+
     <footer><div class="pkgdown-footer-left">
   <p>Developed by <a href="https://github.com/strengejacke" class="external-link">Daniel Lüdecke</a>, <a href="https://dominiquemakowski.github.io/" class="external-link">Dominique Makowski</a>, <a href="https://sites.google.com/site/indrajeetspatilmorality/" class="external-link">Indrajeet Patil</a>, Philip Waggoner, <a href="https://home.msbstats.info/" class="external-link">Mattan S. Ben-Shachar</a>, <a href="https://wiernik.org/" class="external-link">Brenton M. Wiernik</a>, <a href="https://arelbundock.com/" class="external-link">Vincent Arel-Bundock</a>, <a href="https://www.etiennebacher.com/" class="external-link">Etienne Bacher</a>.</p>
 </div>
+
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.9000.</p>
 </div>
+
     </footer>
 </div>
+
+
+
+
+
   </body>
 </html>
