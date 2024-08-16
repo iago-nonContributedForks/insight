@@ -9,7 +9,7 @@ from regression models."><meta property="og:image" content="https://easystats.gi
 
     <a class="navbar-brand me-2" href="../index.html">insight</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.20.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.20.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,8 +82,8 @@ from regression models.</p>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>Can be <code>"residual"</code>, <code>"wald"</code>, <code>"normal"</code>, or
-<code>"model"</code>. <code>"analytical"</code> is an alias for <code>"residual"</code>.</p><ul><li><p><code>"residual"</code> (aka <code>"analytical"</code>) returns the residual degrees of
+<dd><p>Type of approximation for the degrees of freedom. Can be one of
+the following:</p><ul><li><p><code>"residual"</code> (aka <code>"analytical"</code>) returns the residual degrees of
 freedom, which usually is what <code><a href="https://rdrr.io/r/stats/df.residual.html" class="external-link">stats::df.residual()</a></code> returns. If a
 model object has no method to extract residual degrees of freedom, these
 are calculated as <code>n-p</code>, i.e. the number of observations minus the number
@@ -96,10 +96,11 @@ be extracted.</p></li>
 <li><p><code>"normal"</code> always returns <code>Inf</code>.</p></li>
 <li><p><code>"model"</code> returns model-based degrees of freedom, i.e. the number of
 (estimated) parameters.</p></li>
-<li><p>For mixed models, can also be <code>"ml1"</code> (approximation of degrees of freedom
-based on a "m-l-1" heuristic as suggested by <em>Elff et al. 2019</em>) or
-<code>"betwithin"</code>, and for models of class <code>merMod</code>, <code>type</code> can also be
-<code>"satterthwaite"</code> or <code>"kenward-roger"</code>. See 'Details'.</p></li>
+<li><p>For mixed models, can also be <code>"ml1"</code> (or <code>"m-l-1"</code>, approximation of
+degrees of freedom based on a "m-l-1" heuristic as suggested by <em>Elff et
+al. 2019</em>) or <code>"between-within"</code> (or <code>"betwithin"</code>).</p></li>
+<li><p>For mixed models of class <code>merMod</code>, <code>type</code> can also be <code>"satterthwaite"</code>
+or <code>"kenward-roger"</code> (or <code>"kenward"</code>). See 'Details'.</p></li>
 </ul><p>Usually, when degrees of freedom are required to calculate p-values or
 confidence intervals, <code>type = "wald"</code> is likely to be the best choice in
 most cases.</p></dd>
