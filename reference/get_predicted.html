@@ -39,7 +39,7 @@ are not available otherwise."><meta property="og:image" content="https://easysta
 
     <a class="navbar-brand me-2" href="../index.html">insight</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.14</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,7 +190,8 @@ second argument has to be a model).</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other argument to be passed, for instance to <code><a href="get_predicted_ci.html">get_predicted_ci()</a></code>.</p></dd>
+<dd><p>Other argument to be passed, for instance to the model's <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>
+method, or <code><a href="get_predicted_ci.html">get_predicted_ci()</a></code>.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
@@ -201,16 +202,26 @@ matrices can be generated using <code><a href="get_datagrid.html">get_datagrid()
 
 <dt id="arg-predict">predict<a class="anchor" aria-label="anchor" href="#arg-predict"></a></dt>
 <dd><p>string or <code>NULL</code></p><ul><li><p><code>"link"</code> returns predictions on the model's link-scale (for logistic models,
-that means the log-odds scale) with a confidence interval (CI).</p></li>
+that means the log-odds scale) with a confidence interval (CI). This option
+should also be used for finite mixture models (currently only family
+<code><a href="https://paulbuerkner.com/brms/reference/mixture.html" class="external-link">brms::mixture()</a></code> from package <em>brms</em>), when predicted values of the
+response for each class is required.</p></li>
 <li><p><code>"expectation"</code> (default) also returns confidence intervals, but this time
 the output is on the response scale (for logistic models, that means
 probabilities).</p></li>
 <li><p><code>"prediction"</code> also gives an output on the response scale, but this time
 associated with a prediction interval (PI), which is larger than a confidence
 interval (though it mostly make sense for linear models).</p></li>
-<li><p><code>"classification"</code> only differs from <code>"prediction"</code> for binomial models
-where it additionally transforms the predictions into the original response's
-type (for instance, to a factor).</p></li>
+<li><p><code>"classification"</code> is relevant only for binomial, ordinal or mixture models.</p><ul><li><p>For binomial models, <code>predict = "classification"</code> will additionally
+transform the predictions into the original response's type (for
+instance, to a factor).</p></li>
+<li><p>For ordinal models (e.g., classes <code>clm</code> or <code>multinom</code>), gives the
+predicted response class membership, defined as highest probability
+prediction.</p></li>
+<li><p>For finite mixture models (currently only family <code><a href="https://paulbuerkner.com/brms/reference/mixture.html" class="external-link">brms::mixture()</a></code> from
+package <em>brms</em>) also returns the predicted response class membership
+(similar as for ordinal models).</p></li>
+</ul></li>
 <li><p>Other strings are passed directly to the <code>type</code> argument of the <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code>
 method supplied by the modelling package.</p></li>
 <li><p>Specifically for models of class <code>brmsfit</code> (package <em>brms</em>), the <code>predict</code>
@@ -222,7 +233,7 @@ by the <code>...</code> ellipsis and passed directly to the <code><a href="https
 by the modelling package. Note that this might result in conflicts with
 multiple matching <code>type</code> arguments - thus, the recommendation is to use the
 <code>predict</code> argument for those values.</p></li>
-<li><p>Notes: You can see the 4 options for predictions as on a gradient from
+<li><p>Notes: You can see the four options for predictions as on a gradient from
 "close to the model" to "close to the response data": "link", "expectation",
 "prediction", "classification". The <code>predict</code> argument modulates two things:
 the scale of the output and the type of certainty interval. Read more about
@@ -237,20 +248,20 @@ CI).</p></dd>
 
 
 <dt id="arg-ci-type">ci_type<a class="anchor" aria-label="anchor" href="#arg-ci-type"></a></dt>
-<dd><p>Can be <code>"prediction"</code> or <code>"confidence"</code>. Prediction
-intervals show the range that likely contains the value of a new
-observation (in what range it would fall), whereas confidence intervals
-reflect the uncertainty around the estimated parameters (and gives the
-range of the link; for instance of the regression line in a linear
-regressions). Prediction intervals account for both the uncertainty in the
-model's parameters, plus the random variation of the individual values.
-Thus, prediction intervals are always wider than confidence intervals.
-Moreover, prediction intervals will not necessarily become narrower as the
-sample size increases (as they do not reflect only the quality of the fit).
-This applies mostly for "simple" linear models (like <code>lm</code>), as for
-other models (e.g., <code>glm</code>), prediction intervals are somewhat useless
-(for instance, for a binomial model for which the dependent variable is a
-vector of 1s and 0s, the prediction interval is... <code>[0, 1]</code>).</p></dd>
+<dd><p>Can be <code>"prediction"</code> or <code>"confidence"</code>. Prediction intervals
+show the range that likely contains the value of a new observation (in what
+range it would fall), whereas confidence intervals reflect the uncertainty
+around the estimated parameters (and gives the range of the link; for
+instance of the regression line in a linear regressions). Prediction
+intervals account for both the uncertainty in the model's parameters, plus
+the random variation of the individual values. Thus, prediction intervals
+are always wider than confidence intervals. Moreover, prediction intervals
+will not necessarily become narrower as the sample size increases (as they
+do not reflect only the quality of the fit). This applies mostly for
+"simple" linear models (like <code>lm</code>), as for other models (e.g., <code>glm</code>),
+prediction intervals are somewhat useless (for instance, for a binomial
+model for which the dependent variable is a vector of 1s and 0s, the
+prediction interval is... <code>[0, 1]</code>).</p></dd>
 
 
 <dt id="arg-ci-method">ci_method<a class="anchor" aria-label="anchor" href="#arg-ci-method"></a></dt>
@@ -258,8 +269,8 @@ vector of 1s and 0s, the prediction interval is... <code>[0, 1]</code>).</p></dd
 Possible values depend on model type.</p><ul><li><p><code>NULL</code> uses the default method, which varies based on the model type.</p></li>
 <li><p>Most frequentist models: <code>"wald"</code> (default), <code>"residual"</code> or <code>"normal"</code>.</p></li>
 <li><p>Bayesian models:  <code>"quantile"</code>  (default), <code>"hdi"</code>, <code>"eti"</code>, and <code>"spi"</code>.</p></li>
-<li><p>Mixed effects <strong>lme4</strong> models: <code>"wald"</code> (default), <code>"residual"</code>, <code>"normal"</code>,
-<code>"satterthwaite"</code>, and <code>"kenward-roger"</code>.</p></li>
+<li><p>Mixed effects <strong>lme4</strong> models: <code>"wald"</code> (default), <code>"residual"</code>,
+<code>"normal"</code>, <code>"satterthwaite"</code>, and <code>"kenward-roger"</code>.</p></li>
 </ul><p>See <code><a href="get_df.html">get_df()</a></code> for details.</p></dd>
 
 
@@ -326,80 +337,90 @@ the random effect variables in <code>data</code> as well.</p></dd>
 
 
 <dt id="arg-include-smooth">include_smooth<a class="anchor" aria-label="anchor" href="#arg-include-smooth"></a></dt>
-<dd><p>For General Additive Models (GAMs). If <code>FALSE</code>,
-will fix the value of the smooth to its average, so that the predictions
-are not depending on it. (default), <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>, or
-<code><a href="https://easystats.github.io/bayestestR/reference/map_estimate.html" class="external-link">bayestestR::map_estimate()</a></code>.</p></dd>
+<dd><p>For General Additive Models (GAMs). If <code>FALSE</code>, will
+fix the value of the smooth to its average, so that the predictions are not
+depending on it. (default), <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>, or <code><a href="https://easystats.github.io/bayestestR/reference/map_estimate.html" class="external-link">bayestestR::map_estimate()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The fitted values (i.e. predictions for the response). For Bayesian
-or bootstrapped models (when <code>iterations != NULL</code>), iterations (as
-columns and observations are rows) can be accessed via <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code>.</p>
+or bootstrapped models (when <code>iterations != NULL</code>), iterations (as columns
+and observations are rows) can be accessed via <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>In <code>insight::get_predicted()</code>, the <code>predict</code> argument jointly
-modulates two separate concepts, the <strong>scale</strong> and the <strong>uncertainty interval</strong>.</p>
+    <p>In <code>insight::get_predicted()</code>, the <code>predict</code> argument jointly modulates two
+separate concepts, the <strong>scale</strong> and the <strong>uncertainty interval</strong>.</p>
     </div>
     <div class="section level2">
     <h2 id="confidence-interval-ci-vs-prediction-interval-pi-">Confidence Interval (CI) vs. Prediction Interval (PI))<a class="anchor" aria-label="anchor" href="#confidence-interval-ci-vs-prediction-interval-pi-"></a></h2>
 
 
-<ul><li><p><strong>Linear models</strong> - <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>: For linear models, prediction
-intervals (<code>predict="prediction"</code>) show the range that likely
-contains the value of a new observation (in what range it is likely to
-fall), whereas confidence intervals (<code>predict="expectation"</code> or
-<code>predict="link"</code>) reflect the uncertainty around the estimated
-parameters (and gives the range of uncertainty of the regression line). In
-general, Prediction Intervals (PIs) account for both the uncertainty in the
-model's parameters, plus the random variation of the individual values.
-Thus, prediction intervals are always wider than confidence intervals.
-Moreover, prediction intervals will not necessarily become narrower as the
-sample size increases (as they do not reflect only the quality of the fit,
-but also the variability within the data).</p></li>
-<li><p><strong>Generalized Linear models</strong> - <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>: For binomial models,
-prediction intervals are somewhat useless (for instance, for a binomial
-(Bernoulli) model for which the dependent variable is a vector of 1s and
-0s, the prediction interval is... <code>[0, 1]</code>).</p></li>
+<ul><li><p><strong>Linear models</strong> - <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>: For linear models, prediction intervals
+(<code>predict="prediction"</code>) show the range that likely contains the value of a
+new observation (in what range it is likely to fall), whereas confidence
+intervals (<code>predict="expectation"</code> or <code>predict="link"</code>) reflect the
+uncertainty around the estimated parameters (and gives the range of
+uncertainty of the regression line). In general, Prediction Intervals (PIs)
+account for both the uncertainty in the model's parameters, plus the random
+variation of the individual values. Thus, prediction intervals are always
+wider than confidence intervals. Moreover, prediction intervals will not
+necessarily become narrower as the sample size increases (as they do not
+reflect only the quality of the fit, but also the variability within the
+data).</p></li>
+<li><p><strong>Generalized Linear models</strong> - <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code>: For binomial models, prediction
+intervals are somewhat useless (for instance, for a binomial (Bernoulli)
+model for which the dependent variable is a vector of 1s and 0s, the
+prediction interval is... <code>[0, 1]</code>).</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="link-scale-vs-response-scale">Link scale vs. Response scale<a class="anchor" aria-label="anchor" href="#link-scale-vs-response-scale"></a></h2>
 
 
-<p>When users set the <code>predict</code> argument to <code>"expectation"</code>, the predictions
-are returned on the response scale, which is arguably the most convenient
-way to understand and visualize relationships of interest. When users set
-the <code>predict</code> argument to <code>"link"</code>, predictions are returned on the link
-scale, and no transformation is applied. For instance, for a logistic
-regression model, the response scale corresponds to the predicted
-probabilities, whereas the link-scale makes predictions of log-odds
-(probabilities on the logit scale). Note that when users select
-<code>predict="classification"</code> in binomial models, the <code>get_predicted()</code>
-function will first calculate predictions as if the user had selected
-<code>predict="expectation"</code>. Then, it will round the responses in order to
-return the most likely outcome.</p>
+<p>When users set the <code>predict</code> argument to <code>"expectation"</code>, the predictions are
+returned on the response scale, which is arguably the most convenient way to
+understand and visualize relationships of interest. When users set the
+<code>predict</code> argument to <code>"link"</code>, predictions are returned on the link scale,
+and no transformation is applied. For instance, for a logistic regression
+model, the response scale corresponds to the predicted probabilities, whereas
+the link-scale makes predictions of log-odds (probabilities on the logit
+scale). Note that when users select <code>predict = "classification"</code> in binomial
+models, the <code>get_predicted()</code> function will first calculate predictions as if
+the user had selected <code>predict = "expectation"</code>. Then, it will round the
+responses in order to return the most likely outcome. For ordinal or mixture
+models, it returns the predicted class membership, based on the highest
+probability of classification.</p>
     </div>
     <div class="section level2">
     <h2 id="heteroscedasticity-consistent-standard-errors">Heteroscedasticity consistent standard errors<a class="anchor" aria-label="anchor" href="#heteroscedasticity-consistent-standard-errors"></a></h2>
 
 
-<p>The arguments <code>vcov</code> and <code>vcov_args</code> can be used to calculate robust
-standard errors for confidence intervals of predictions. These arguments,
-when provided in <code>get_predicted()</code>, are passed down to <code><a href="get_predicted_ci.html">get_predicted_ci()</a></code>,
-thus, see the related documentation there for more
-details.</p>
+<p>The arguments <code>vcov</code> and <code>vcov_args</code> can be used to calculate robust standard
+errors for confidence intervals of predictions. These arguments, when
+provided in <code>get_predicted()</code>, are passed down to <code><a href="get_predicted_ci.html">get_predicted_ci()</a></code>, thus,
+see the related documentation there for more details.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="finite-mixture-models">Finite mixture models<a class="anchor" aria-label="anchor" href="#finite-mixture-models"></a></h2>
+
+
+<p>For finite mixture models (currently, only the <code>mixture()</code> family from package
+<em>brms</em> is supported), use <code>predict = "classification"</code> to predict the class
+membership. To predict outcome values by class, use <code>predict = "link"</code>. Other
+<code>predict</code> options will return predicted values of the outcome for the full
+data, not stratified by class membership.</p>
     </div>
     <div class="section level2">
     <h2 id="bayesian-and-bootstrapped-models-and-iterations">Bayesian and Bootstrapped models and iterations<a class="anchor" aria-label="anchor" href="#bayesian-and-bootstrapped-models-and-iterations"></a></h2>
 
 
-<p>For predictions based on multiple iterations, for instance in the case of Bayesian
-models and bootstrapped predictions, the function used to compute the centrality
-(point-estimate predictions) can be modified via the <code>centrality_function</code>
-argument. For instance, <code>get_predicted(model, centrality_function = stats::median)</code>.
-The default is <code>mean</code>. Individual draws can be accessed by running
+<p>For predictions based on multiple iterations, for instance in the case of
+Bayesian models and bootstrapped predictions, the function used to compute
+the centrality (point-estimate predictions) can be modified via the
+<code>centrality_function</code> argument. For instance,
+<code>get_predicted(model, centrality_function = stats::median)</code>. The default is
+<code>mean</code>. Individual draws can be accessed by running
 <code>iter &lt;- as.data.frame(get_predicted(model))</code>, and their iterations can be
 reshaped into a long format by <code>bayestestR::reshape_iterations(iter)</code>.</p>
     </div>
@@ -475,74 +496,74 @@ reshaped into a long format by <code>bayestestR::reshape_iterations(iter)</code>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Bootstrapped</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">get_predicted</span><span class="op">(</span><span class="va">x</span>, iterations <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Predicted   iter_1   iter_2    iter_3   iter_4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   21.40432 21.39969 21.82240 20.970542 21.42465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   21.40432 21.39969 21.82240 20.970542 21.42465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   26.68824 27.17221 28.54269 23.659855 27.37819</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   21.40432 21.39969 21.82240 20.970542 21.42465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   15.13788 15.17414 14.88754 16.075708 14.41413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   21.50666 21.44688 21.84475 21.200284 21.53475</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   13.70504 14.51349 14.57464 12.859324 12.87272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   27.32278 27.46478 28.68126 25.084254 28.06082</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   26.64730 27.15333 28.53375 23.567958 27.33415</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  21.13822 21.27699 21.76429 20.373213 21.13838</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  21.13822 21.27699 21.76429 20.373213 21.13838</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  15.03554 15.12695 14.86519 15.845966 14.30403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  15.03554 15.12695 14.86519 15.845966 14.30403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  15.03554 15.12695 14.86519 15.845966 14.30403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14.52381 14.89101 14.75344 14.697258 13.75353</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  14.31912 14.79663 14.70874 14.237774 13.53333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  14.01208 14.65506 14.64169 13.548549 13.20302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  27.24090 27.42703 28.66338 24.900460 27.97274</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  27.52747 27.55916 28.72596 25.543737 28.28102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  27.26137 27.43647 28.66785 24.946409 27.99476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  26.60636 27.13446 28.52481 23.476061 27.29011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  15.64961 15.41009 14.99929 17.224417 14.96464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  15.64961 15.41009 14.99929 17.224417 14.96464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  13.70504 14.51349 14.57464 12.859324 12.87272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  15.13788 15.17414 14.88754 16.075708 14.41413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  27.24090 27.42703 28.66338 24.900460 27.97274</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  26.72917 27.19108 28.55163 23.751752 27.42223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  26.27885 26.98345 28.45329 22.740888 26.93779</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  13.31613 14.33417 14.48970 11.986305 12.45434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  20.07382 20.78622 21.53184 17.983899 19.99334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  11.86282 13.66407 14.17233  8.723972 10.89091</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  26.36073 27.02120 28.47117 22.924681 27.02587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Predicted    iter_1   iter_2   iter_3   iter_4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   21.54652 21.545133 22.28933 21.04761 21.30402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   21.54652 21.545133 22.28933 21.04761 21.30402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   26.78335 25.562393 27.98169 27.80512 25.78421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   21.54652 21.545133 22.28933 21.04761 21.30402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   14.89821 14.754365 15.08317 14.10354 15.65176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   21.69355 21.834040 22.44701 21.06704 21.42611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   12.83979 10.709666 12.87554 13.83148 13.94248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   27.69494 27.353616 28.95935 27.92561 26.54118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   26.72454 25.446830 27.91861 27.79735 25.73537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  21.16425 20.793975 21.87934 20.99708 20.98658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  21.16425 20.793975 21.87934 20.99708 20.98658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  14.75118 14.465458 14.92548 14.08410 15.52966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  14.75118 14.465458 14.92548 14.08410 15.52966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  14.75118 14.465458 14.92548 14.08410 15.52966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14.01603 13.020923 14.13704 13.98694 14.91921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  13.72197 12.443109 13.82167 13.94807 14.67502</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  13.28088 11.576387 13.34860 13.88977 14.30875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  27.57731 27.122491 28.83320 27.91006 26.44350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  27.98900 27.931431 29.27473 27.96447 26.78536</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  27.60672 27.180272 28.86474 27.91395 26.46792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  26.66573 25.331267 27.85554 27.78958 25.68654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  15.63335 16.198901 15.87160 14.20070 16.26221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  15.63335 16.198901 15.87160 14.20070 16.26221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  12.83979 10.709666 12.87554 13.83148 13.94248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  14.89821 14.754365 15.08317 14.10354 15.65176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  27.57731 27.122491 28.83320 27.91006 26.44350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  26.84217 25.677955 28.04476 27.81290 25.83305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  26.19524 24.406764 27.35094 27.72739 25.29585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  12.28108  9.611819 12.27633 13.75763 13.47853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  19.63514 17.789341 20.23939 20.79498 19.71683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  10.19325  5.509339 10.03716 13.48168 11.74483</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  26.31286 24.637890 27.47709 27.74294 25.39352</span>
 <span class="r-in"><span><span class="co"># Same as as.data.frame(..., keep_iterations = FALSE)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">get_predicted</span><span class="op">(</span><span class="va">x</span>, iterations <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Predicted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   20.79277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   20.79277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   25.80472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   20.79277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   15.02221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   20.87179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   13.91592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   26.29465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   25.77311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  20.58731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  20.58731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  14.94319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  14.94319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  14.94319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14.54809</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  14.39005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  14.15298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  26.23143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  26.45269</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  26.24724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  25.74151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  15.41732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  15.41732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  13.91592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  15.02221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  26.23143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  25.83633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  25.48864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  13.61564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  19.76550</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  12.49355</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  25.55186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   21.38040</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   21.38040</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   26.38374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   21.38040</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   15.25410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   21.49737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   13.61645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   27.10898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   26.33695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  21.07626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  21.07626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  15.13712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  15.13712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  15.13712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  14.55225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  14.31830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  13.96738</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  27.01540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  27.34293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  27.03880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  26.29016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  15.83897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  15.83897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  13.61645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  15.25410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  27.01540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  26.43053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  25.91584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  13.17195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  19.85973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  11.51091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  26.00942</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Different prediction types ------------------------</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
