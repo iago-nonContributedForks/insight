@@ -15,7 +15,7 @@ below."><meta property="og:image" content="https://easystats.github.io/insight/r
 
     <a class="navbar-brand me-2" href="../index.html">insight</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -187,53 +187,24 @@ necessary, also for a cleaner print. See also 'Examples'.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/bayestestR/" class="external-link">bayestestR</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="download_model.html">download_model</a></span><span class="op">(</span><span class="st">"brms_zi_2"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/bayestestR/reference/hdi.html" class="external-link">hdi</a></span><span class="op">(</span><span class="va">model</span>, effects <span class="op">=</span> <span class="st">"all"</span>, component <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://easystats.github.io/bayestestR/reference/hdi.html" class="external-link">hdi</a></span><span class="op">(</span><span class="va">model</span>, effects <span class="op">=</span> <span class="st">"all"</span>, component <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># hdi() returns a data frame; here we use only the</span></span></span>
-<span class="r-in"><span><span class="co"># information on parameter names and HDI values</span></span></span>
-<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="va">tmp</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  Parameter   CI        CI_low    CI_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1              b_Intercept 0.95 -1.5750655217 -0.1912161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                b_persons 0.95  0.6184455532  1.0688142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  b_child 0.95 -1.3162422984 -0.9575811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 b_camper 0.95  0.5461831894  0.9261158</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    sd_persons__Intercept 0.95  0.0001646025  0.5350859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5           b_zi_Intercept 0.95 -2.1380522885  0.8153516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7               b_zi_child 0.95  1.2372839351  2.5561148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6              b_zi_camper 0.95 -1.5578690989 -0.1378578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 sd_persons__zi_Intercept 0.95  0.3711927016  3.0695561</span>
+<span class="r-in"><span>  <span class="co"># hdi() returns a data frame; here we use only the</span></span></span>
+<span class="r-in"><span>  <span class="co"># information on parameter names and HDI values</span></span></span>
+<span class="r-in"><span>  <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-in"><span>  <span class="va">tmp</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Based on the "by" argument, we get a list of data frames that</span></span></span>
-<span class="r-in"><span><span class="co"># is split into several parts that reflect the model components.</span></span></span>
-<span class="r-in"><span><span class="fu">print_parameters</span><span class="op">(</span><span class="va">model</span>, <span class="va">tmp</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $fixed.conditional</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cleaned_Parameter   Parameter   CI     CI_low    CI_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       (Intercept) b_Intercept 0.95 -1.5750655 -0.1912161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           persons   b_persons 0.95  0.6184456  1.0688142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             child     b_child 0.95 -1.3162423 -0.9575811</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            camper    b_camper 0.95  0.5461832  0.9261158</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $fixed.zi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cleaned_Parameter      Parameter   CI    CI_low    CI_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       (Intercept) b_zi_Intercept 0.95 -2.138052  0.8153516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             child     b_zi_child 0.95  1.237284  2.5561148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8            camper    b_zi_camper 0.95 -1.557869 -0.1378578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`random.conditional.SD/Cor: persons`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cleaned_Parameter             Parameter   CI       CI_low   CI_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       (Intercept) sd_persons__Intercept 0.95 0.0001646025 0.5350859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`random.zi.SD/Cor: persons`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cleaned_Parameter                Parameter   CI    CI_low  CI_high</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       (Intercept) sd_persons__zi_Intercept 0.95 0.3711927 3.069556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span>  <span class="co"># Based on the "by" argument, we get a list of data frames that</span></span></span>
+<span class="r-in"><span>  <span class="co"># is split into several parts that reflect the model components.</span></span></span>
+<span class="r-in"><span>  <span class="fu">print_parameters</span><span class="op">(</span><span class="va">model</span>, <span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># This is the standard print()-method for "bayestestR::hdi"-objects.</span></span></span>
-<span class="r-in"><span><span class="co"># For printing methods, it is easy to print complex summary statistics</span></span></span>
-<span class="r-in"><span><span class="co"># in a clean way to the console by splitting the information into</span></span></span>
-<span class="r-in"><span><span class="co"># different model components.</span></span></span>
-<span class="r-in"><span><span class="va">x</span></span></span>
+<span class="r-in"><span>  <span class="co"># This is the standard print()-method for "bayestestR::hdi"-objects.</span></span></span>
+<span class="r-in"><span>  <span class="co"># For printing methods, it is easy to print complex summary statistics</span></span></span>
+<span class="r-in"><span>  <span class="co"># in a clean way to the console by splitting the information into</span></span></span>
+<span class="r-in"><span>  <span class="co"># different model components.</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Highest Density Interval</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   |        95% HDI</span>
@@ -274,7 +245,7 @@ necessary, also for a cleaner print. See also 'Examples'.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>
