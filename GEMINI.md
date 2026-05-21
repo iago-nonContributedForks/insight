@@ -17,18 +17,15 @@ This document outlines the common coding conventions observed in the
   ensures that `easystats::install_latest()` will download the latest
   versions.
 
+- For the NEWS file, the current development version should not be
+  indicated by a version number, but rather with `(devel)`.
+
 ## Code Style & Formatting
 
 - **Assignment:** Use the `<-` operator for assignment, not `=`.
 - **Spacing:**
   - Use spaces around all infix operators (`<-`, `==`, `+`, etc.).
   - Place a space after a comma, but not before.
-- **Curly Braces:**
-  - For function definitions, the opening `{` should be on the same line
-    as the closing `)` of that function definition. That can be on the
-    same line as the function definition itself, but might be on a new
-    line if the argument list is too long for one line.
-  - For `if`/`else` statements, the opening `{` can be on the same line.
 - **Line Length:** Keep lines to a reasonable length (e.g., under 80-100
   characters) to improve readability.
 
@@ -115,10 +112,18 @@ comments (`#'`). The documentation should include:
   [`insight::model_info`](https://easystats.github.io/insight/reference/model_info.md)).
   Do not use [`library()`](https://rdrr.io/r/base/library.html) or
   [`require()`](https://rdrr.io/r/base/library.html) at the top of a
-  file (no full import, only selective import of functions).
+  file (no full import, only selective import of functions). However, in
+  test files, package vignettes (.rmd), or in the package documentation,
+  `::` is not required for core R packages like `stats` or `tools`.
 - **Conditional Checks:** Use `insight::check_if_installed("pkg_name")`
   to check if a package is available before using it, especially for
   optional (“Suggests”) dependencies.
+- **Argument validation:** Use
+  [`insight::validate_argument()`](https://easystats.github.io/insight/reference/validate_argument.md)
+  instead of [`match.arg()`](https://rdrr.io/r/base/match.arg.html) to
+  validate correct input of arguments, unless you need `several.ok`. In
+  this case, rely on
+  [`match.arg()`](https://rdrr.io/r/base/match.arg.html).
 
 ## S3 Object System
 
@@ -134,7 +139,17 @@ comments (`#'`). The documentation should include:
 - Use `tryCatch` for operations that might fail. The internal `.safe()`
   helper is a good example.
 - Use the `insight` package’s functions for user-facing messages:
-  - [`insight::format_error()`](https://easystats.github.io/insight/reference/format_message.md)
-  - [`insight::format_warning()`](https://easystats.github.io/insight/reference/format_message.md)
-  - [`insight::format_alert()`](https://easystats.github.io/insight/reference/format_message.md)
-  - [`insight::print_color()`](https://easystats.github.io/insight/reference/print_color.md)
+  - For errors:
+    [`insight::format_error()`](https://easystats.github.io/insight/reference/format_message.md)
+  - For warnings:
+    [`insight::format_warning()`](https://easystats.github.io/insight/reference/format_message.md)
+  - For messages:
+    [`insight::format_alert()`](https://easystats.github.io/insight/reference/format_message.md)
+  - To highlight messages:
+    [`insight::print_color()`](https://easystats.github.io/insight/reference/print_color.md)
+    Note that character vectors are not pasted together, unlike in
+    [`message()`](https://rdrr.io/r/base/message.html), thus you usually
+    want to use something like
+    [`paste()`](https://rdrr.io/r/base/paste.html) to concatenate the
+    string. Character vectors will add a new paragraph for each string
+    element, not paste them together.
