@@ -58,9 +58,9 @@ model <- stan_glm(Sepal.Width ~ Species * Petal.Length, data = iris)
 #> Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #> Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 #> Chain 1: 
-#> Chain 1:  Elapsed Time: 0.415 seconds (Warm-up)
-#> Chain 1:                0.426 seconds (Sampling)
-#> Chain 1:                0.841 seconds (Total)
+#> Chain 1:  Elapsed Time: 0.402 seconds (Warm-up)
+#> Chain 1:                0.406 seconds (Sampling)
+#> Chain 1:                0.808 seconds (Total)
 #> Chain 1: 
 #> 
 #> SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
@@ -83,9 +83,9 @@ model <- stan_glm(Sepal.Width ~ Species * Petal.Length, data = iris)
 #> Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #> Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 #> Chain 2: 
-#> Chain 2:  Elapsed Time: 0.428 seconds (Warm-up)
-#> Chain 2:                0.407 seconds (Sampling)
-#> Chain 2:                0.835 seconds (Total)
+#> Chain 2:  Elapsed Time: 0.411 seconds (Warm-up)
+#> Chain 2:                0.387 seconds (Sampling)
+#> Chain 2:                0.798 seconds (Total)
 #> Chain 2: 
 #> 
 #> SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
@@ -108,15 +108,15 @@ model <- stan_glm(Sepal.Width ~ Species * Petal.Length, data = iris)
 #> Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #> Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 #> Chain 3: 
-#> Chain 3:  Elapsed Time: 0.388 seconds (Warm-up)
-#> Chain 3:                0.454 seconds (Sampling)
-#> Chain 3:                0.842 seconds (Total)
+#> Chain 3:  Elapsed Time: 0.374 seconds (Warm-up)
+#> Chain 3:                0.433 seconds (Sampling)
+#> Chain 3:                0.807 seconds (Total)
 #> Chain 3: 
 #> 
 #> SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
 #> Chain 4: 
-#> Chain 4: Gradient evaluation took 1.2e-05 seconds
-#> Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+#> Chain 4: Gradient evaluation took 1.1e-05 seconds
+#> Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.11 seconds.
 #> Chain 4: Adjust your expectations accordingly!
 #> Chain 4: 
 #> Chain 4: 
@@ -133,9 +133,9 @@ model <- stan_glm(Sepal.Width ~ Species * Petal.Length, data = iris)
 #> Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #> Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 #> Chain 4: 
-#> Chain 4:  Elapsed Time: 0.399 seconds (Warm-up)
-#> Chain 4:                0.415 seconds (Sampling)
-#> Chain 4:                0.814 seconds (Total)
+#> Chain 4:  Elapsed Time: 0.383 seconds (Warm-up)
+#> Chain 4:                0.394 seconds (Sampling)
+#> Chain 4:                0.777 seconds (Total)
 #> Chain 4: 
 get_priors(model)
 #>                        Parameter Distribution Location Scale Adjusted_Scale
